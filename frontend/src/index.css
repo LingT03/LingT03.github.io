@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+ * Global typographic and palette defaults — Apple-inspired light/dark theme.
+ * ------------------------------------------------------------------------ */
+
+:root {
+  color-scheme: light dark;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans, system-ui);
+  line-height: 1.5;
+}
+
+/* Reduced motion: disable framer-motion-driven animations for users who opt out. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus-visible ring (accent color) for keyboard navigation parity. */
+:where(a, button, [role="button"], input, select, textarea):focus-visible {
+  outline: 2px solid theme("colors.accent.DEFAULT");
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Tooltip pill styling shared across modules. */
+.tooltip-pill {
+  @apply pointer-events-none absolute z-30 rounded-lg bg-ink-700 px-3 py-2 text-xs font-medium text-ink-50 shadow-xl dark:bg-ink-100 dark:text-ink-800;
+  max-width: 18rem;
+}
+
+/* Markdown content typography. */
+.prose-md {
+  @apply text-[15px] leading-relaxed text-ink-600 dark:text-ink-200;
+}
+.prose-md h1,
+.prose-md h2,
+.prose-md h3 {
+  @apply mt-6 mb-2 font-display font-semibold text-ink-700 dark:text-ink-50;
+}
+.prose-md h1 {
+  @apply text-2xl;
+}
+.prose-md h2 {
+  @apply text-xl;
+}
+.prose-md h3 {
+  @apply text-lg;
+}
+.prose-md p {
+  @apply my-3;
+}
+.prose-md ul {
+  @apply my-3 list-disc pl-6;
+}
+.prose-md ol {
+  @apply my-3 list-decimal pl-6;
+}
+.prose-md li {
+  @apply my-1;
+}
+.prose-md a {
+  @apply text-accent underline-offset-2 hover:underline;
+}
+.prose-md blockquote {
+  @apply my-4 border-l-2 border-ink-300 pl-4 italic text-ink-500 dark:border-ink-600;
+}
+.prose-md code {
+  @apply rounded bg-ink-100 px-1.5 py-0.5 font-mono text-[0.85em] text-ink-700 dark:bg-ink-800 dark:text-ink-100;
+}
+.prose-md strong {
+  @apply font-semibold text-ink-700 dark:text-ink-50;
+}

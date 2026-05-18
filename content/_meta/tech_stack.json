@@ -1,0 +1,17 @@
+[
+  { "id": "python", "name": "Python", "logo_url": "/logos/python.svg", "category": "language", "level": 5 },
+  { "id": "r", "name": "R", "logo_url": "/logos/r.svg", "category": "language", "level": 5 },
+  { "id": "typescript", "name": "TypeScript", "logo_url": "/logos/typescript.svg", "category": "language", "level": 4 },
+  { "id": "sql", "name": "SQL", "logo_url": "/logos/sql.svg", "category": "language", "level": 4 },
+  { "id": "pytorch", "name": "PyTorch", "logo_url": "/logos/pytorch.svg", "category": "framework", "level": 4 },
+  { "id": "sklearn", "name": "scikit-learn", "logo_url": "/logos/sklearn.svg", "category": "framework", "level": 5 },
+  { "id": "tidyverse", "name": "tidyverse", "logo_url": "/logos/tidyverse.svg", "category": "framework", "level": 5 },
+  { "id": "react", "name": "React", "logo_url": "/logos/react.svg", "category": "framework", "level": 4 },
+  { "id": "tailwind", "name": "Tailwind", "logo_url": "/logos/tailwind.svg", "category": "framework", "level": 4 },
+  { "id": "framer-motion", "name": "Framer Motion", "logo_url": "/logos/framer.svg", "category": "framework", "level": 3 },
+  { "id": "docker", "name": "Docker", "logo_url": "/logos/docker.svg", "category": "tool", "level": 3 },
+  { "id": "git", "name": "Git", "logo_url": "/logos/git.svg", "category": "tool", "level": 5 },
+  { "id": "jupyter", "name": "Jupyter", "logo_url": "/logos/jupyter.svg", "category": "tool", "level": 5 },
+  { "id": "dowhy", "name": "DoWhy", "logo_url": "/logos/dowhy.svg", "category": "framework", "level": 3 },
+  { "id": "stan", "name": "Stan", "logo_url": "/logos/stan.svg", "category": "framework", "level": 3 }
+]
