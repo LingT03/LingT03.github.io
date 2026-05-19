@@ -149,12 +149,19 @@ def collect_markdown_dir(
     model: type[BaseModel],
     body_field: str,
 ) -> list[dict[str, Any]]:
-    """Parse and validate every ``.md`` file in ``directory``."""
+    """Parse and validate every ``.md`` file in ``directory``.
+
+    Files whose stem contains ``placeholder`` (case-insensitive) are
+    skipped. This lets superseded scaffolds remain on disk during a
+    refactor without breaking the schema validation pass, and they can
+    be removed in a follow-up ``git rm`` commit.
+    """
     if not directory.exists():
         return []
     records = [
         parse_markdown_file(p, model, body_field)
         for p in sorted(directory.glob("*.md"))
+        if "placeholder" not in p.stem.lower()
     ]
     return records
 

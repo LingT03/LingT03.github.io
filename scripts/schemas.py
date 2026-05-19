@@ -112,7 +112,12 @@ class Job(BaseModel):
 
 
 class Project(BaseModel):
-    """A software / research project entry."""
+    """A software / research project entry.
+
+    Extended for V2 §3.4: ``role``, ``timeframe``, and ``tags`` join the
+    existing identification fields, and ``status`` accepts the expanded
+    lifecycle vocabulary used in the canonical V2 listing.
+    """
 
     model_config = ConfigDict(extra="forbid")
 
@@ -122,7 +127,17 @@ class Project(BaseModel):
     long_description_md: str
     tech_stack: list[str] = Field(default_factory=list)
     links: dict[str, str] = Field(default_factory=dict)
-    status: Literal["in_progress", "completed", "archived"] = "completed"
+    status: Literal[
+        "in_progress",
+        "completed",
+        "archived",
+        "prototype",
+        "experimental",
+        "active",
+    ] = "completed"
+    role: str | None = None
+    timeframe: str | None = None
+    tags: list[str] = Field(default_factory=list)
 
 
 # ---------------------------------------------------------------------------
@@ -131,16 +146,31 @@ class Project(BaseModel):
 
 
 class Book(BaseModel):
-    """A book review record."""
+    """A book review record.
+
+    V2 §3.5: ``category`` is reordered/relabeled to
+    ``Fiction → Nonfiction → Textbook`` (replacing the legacy "Learning"
+    bucket). Ratings are optional for textbooks per the spec, so the
+    field type is widened to ``float | None``.
+
+    Notes
+    -----
+    The Open Library ingestion script (``scripts/fetch_books.py``)
+    populates ``cover_image_url`` and ``author`` from canonical
+    bibliographic data; user-annotated fields (rating, category, tags,
+    summary, notes) are authored locally and preserved across re-runs.
+    """
 
     model_config = ConfigDict(extra="forbid")
 
     id: str
     title: str
     author: str
-    category: Literal["Learning", "Nonfiction", "Fiction"]
-    rating: float = Field(ge=0.0, le=10.0)
+    category: Literal["Fiction", "Nonfiction", "Textbook"]
+    rating: float | None = Field(default=None, ge=0.0, le=10.0)
     cover_image_url: str | None = None
+    open_library_key: str | None = None  # e.g. "/works/OL12345W"
+    isbn: str | None = None
     started_at: date | None = None
     finished_at: date | None = None
     summary_md: str
@@ -149,9 +179,9 @@ class Book(BaseModel):
 
     @field_validator("rating")
     @classmethod
-    def _round_to_two(cls, v: float) -> float:
+    def _round_to_two(cls, v: float | None) -> float | None:
         """Enforce two-decimal precision for the rating field."""
-        return round(v, 2)
+        return None if v is None else round(v, 2)
 
 
 # ---------------------------------------------------------------------------
