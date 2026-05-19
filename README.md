@@ -1,4 +1,4 @@
-# Ling._.T — Personal Portfolio
+# Ling.\_.T — Personal Portfolio
 
 A personal portfolio site built to the specification in
 `Portfolio_Website_Guideline.pdf`. Frontend is React + Vite + TypeScript +
@@ -42,6 +42,7 @@ pip install -r scripts/requirements.txt
 
 # 2. Compile content → JSON (or rely on the `predev` hook)
 python scripts/build_content.py
+python scripts/fetch_books.py
 
 # 3. Start the frontend dev server
 cd frontend
@@ -67,9 +68,9 @@ Example: add a new book.
 id: book-new-id
 title: Some Title
 author: Author Name
-category: Learning  # one of: Learning | Nonfiction | Fiction
-rating: 8.5  # 0.0 – 10.0
-cover_image_url: "/covers/something.jpg"  # placeholder paths are fine
+category: Learning # one of: Learning | Nonfiction | Fiction
+rating: 8.5 # 0.0 – 10.0
+cover_image_url: "/covers/something.jpg" # placeholder paths are fine
 started_at: 2025-01-12
 finished_at: 2025-03-04
 tags: [statistics, methods]
@@ -82,25 +83,19 @@ Then either restart `npm run dev` or rerun `python scripts/build_content.py`.
 
 ## Spec coverage (Portfolio_Website_Guideline.pdf)
 
-| Spec section                          | Implementation                                              |
-| ------------------------------------- | ------------------------------------------------------------ |
-| §2.3 Six routes                       | `frontend/src/App.tsx` — `/`, `/academic`, `/professional`, `/projects`, `/books`, `/photography` |
-| §3 Data schemas                       | `scripts/schemas.py` (Pydantic) + `frontend/src/lib/types.ts` |
-| §4.1 Sticky nav + footer + palette    | `components/NavBar.tsx`, `components/Footer.tsx`, `tailwind.config.js` |
-| §4.2 Home split-pane                  | `pages/Home.tsx`                                             |
-| §4.3 Academic timeline + tooltips     | `pages/Academic.tsx` with `CourseCell` hover/focus tooltip   |
-| §4.4 Evasive tech-stack bubbles       | `components/EvasiveBubble.tsx` + `lib/hooks/useEvasion.ts` + `lib/hooks/useFloating.ts` |
-| §4.5 Project modal w/ blurred backdrop | `pages/Projects.tsx` + `components/Modal.tsx`               |
-| §4.6 Books: filter chips + sort + hover score + summary modal | `pages/Books.tsx` |
-| §4.7 Photography: filter toolbar + lightbox | `pages/Photography.tsx` + `components/Lightbox.tsx`    |
-| §5 Markdown content management        | `scripts/build_content.py` + `frontend/src/components/Markdown.tsx` |
-| §7.3 Accessibility                    | `aria-modal`, `aria-expanded`, focus-visible rings, keyboard parity |
-| §8 GitHub + CI/CD                     | `.github/workflows/deploy.yml`                              |
+| Spec section                                                  | Implementation                                                                                    |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| §2.3 Six routes                                               | `frontend/src/App.tsx` — `/`, `/academic`, `/professional`, `/projects`, `/books`, `/photography` |
+| §3 Data schemas                                               | `scripts/schemas.py` (Pydantic) + `frontend/src/lib/types.ts`                                     |
+| §4.1 Sticky nav + footer + palette                            | `components/NavBar.tsx`, `components/Footer.tsx`, `tailwind.config.js`                            |
+| §4.2 Home split-pane                                          | `pages/Home.tsx`                                                                                  |
+| §4.3 Academic timeline + tooltips                             | `pages/Academic.tsx` with `CourseCell` hover/focus tooltip                                        |
+| §4.4 Evasive tech-stack bubbles                               | `components/EvasiveBubble.tsx` + `lib/hooks/useEvasion.ts` + `lib/hooks/useFloating.ts`           |
+| §4.5 Project modal w/ blurred backdrop                        | `pages/Projects.tsx` + `components/Modal.tsx`                                                     |
+| §4.6 Books: filter chips + sort + hover score + summary modal | `pages/Books.tsx`                                                                                 |
+| §4.7 Photography: filter toolbar + lightbox                   | `pages/Photography.tsx` + `components/Lightbox.tsx`                                               |
+| §5 Markdown content management                                | `scripts/build_content.py` + `frontend/src/components/Markdown.tsx`                               |
+| §7.3 Accessibility                                            | `aria-modal`, `aria-expanded`, focus-visible rings, keyboard parity                               |
+| §8 GitHub + CI/CD                                             | `.github/workflows/deploy.yml`                                                                    |
 
 ## Notes / TODOs
-
-- Replace `frontend/public/avatar-placeholder.png` with a real portrait.
-- Replace `cover_image_url` and `image_url` placeholders in `content/books/` and `content/photos/`.
-- Fill the seeded job and project Markdown files with real records.
-- Confirm CU Denver / MSU Denver dates and catalog codes in `content/degrees/` and `content/courses/`.
-- The project repo URLs in `content/projects/*.md` are placeholders pointing to nonexistent repos.
