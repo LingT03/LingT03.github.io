@@ -10,6 +10,32 @@
     />
     <meta name="theme-color" content="#0071e3" />
     <title>Ling._.T</title>
+    <!--
+      Theme bootstrap (V2 §2.2): applies the persisted theme class to
+      <html> before the first paint, eliminating the flash-of-wrong-theme
+      on route changes and hard reloads. Runs synchronously *before* the
+      module script so React mounts into an already-themed DOM.
+    -->
+    <script>
+      (function applyPersistedTheme() {
+        try {
+          var stored = window.localStorage.getItem("theme");
+          var prefersDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var theme = stored === "light" || stored === "dark"
+            ? stored
+            : prefersDark
+              ? "dark"
+              : "light";
+          if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (_) {
+          /* localStorage may be unavailable (e.g. privacy mode) */
+        }
+      })();
+    </script>
   </head>
   <body class="bg-ink-50 dark:bg-ink-900 text-ink-700 dark:text-ink-100 antialiased">
     <div id="root"></div>

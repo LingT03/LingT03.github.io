@@ -14,7 +14,14 @@ export function formatMonthYear(iso: string | null, fallback = "Present"): strin
   });
 }
 
-/** Format a rating to two-decimal precision (e.g. 9.5 -> "9.50"). */
-export function formatRating(r: number): string {
-  return r.toFixed(2);
+/**
+ * Format a rating to two-decimal precision (e.g. 9.5 -> "9.50").
+ *
+ * V2 §3.5 widens the schema so textbooks can carry a `null` rating;
+ * callers should branch on `r === null` before invoking this helper,
+ * but as a defensive guard we return the configured fallback rather
+ * than throwing on `null`.
+ */
+export function formatRating(r: number | null, fallback = "—"): string {
+  return r === null ? fallback : r.toFixed(2);
 }

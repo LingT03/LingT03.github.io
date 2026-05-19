@@ -47,6 +47,14 @@ export interface Job {
   tech_stack: string[];
 }
 
+export type ProjectStatus =
+  | "in_progress"
+  | "completed"
+  | "archived"
+  | "prototype"
+  | "experimental"
+  | "active";
+
 export interface Project {
   id: string;
   title: string;
@@ -56,18 +64,23 @@ export interface Project {
   long_description_md_html: string;
   tech_stack: string[];
   links: Record<string, string>;
-  status: "in_progress" | "completed" | "archived";
+  status: ProjectStatus;
+  role: string | null;
+  timeframe: string | null;
+  tags: string[];
 }
 
-export type BookCategory = "Learning" | "Nonfiction" | "Fiction";
+export type BookCategory = "Fiction" | "Nonfiction" | "Textbook";
 
 export interface Book {
   id: string;
   title: string;
   author: string;
   category: BookCategory;
-  rating: number;
+  rating: number | null;
   cover_image_url: string | null;
+  open_library_key: string | null;
+  isbn: string | null;
   started_at: string | null;
   finished_at: string | null;
   summary_md: string;

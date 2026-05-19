@@ -54,7 +54,7 @@ export function Projects() {
                 </h3>
                 <span
                   className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider ${
-                    p.status === "in_progress"
+                    p.status === "in_progress" || p.status === "active"
                       ? "bg-accent/10 text-accent"
                       : "bg-ink-100 text-ink-500 dark:bg-ink-700 dark:text-ink-300"
                   }`}
@@ -62,6 +62,13 @@ export function Projects() {
                   {p.status.replace("_", " ")}
                 </span>
               </header>
+              {(p.role || p.timeframe) && (
+                <p className="mb-2 text-xs text-ink-500 dark:text-ink-400">
+                  {p.role}
+                  {p.role && p.timeframe ? " · " : ""}
+                  {p.timeframe}
+                </p>
+              )}
               <Markdown html={p.short_description_md_html} className="flex-1" />
               <div className="mt-3 border-t border-ink-200/60 pt-3 dark:border-ink-700/60">
                 <TechBubbleRow techIds={p.tech_stack} techStack={techStack} />

@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import type { TechStackItem } from "../lib/types";
 import { useEvasion } from "../lib/hooks/useEvasion";
 import { useFloating } from "../lib/hooks/useFloating";
+import { TechIcon } from "./TechIcon";
 
 interface Props {
   tech: TechStackItem;
@@ -37,10 +38,7 @@ export function EvasiveBubble({ tech, phase = 0 }: Props) {
       tabIndex={0}
       aria-label={`Technology: ${tech.name}`}
     >
-      <span
-        aria-hidden
-        className="inline-block h-1.5 w-1.5 rounded-full bg-accent"
-      />
+      <TechIcon tech={tech} size={14} />
       {tech.name}
     </motion.div>
   );

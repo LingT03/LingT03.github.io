@@ -1,10 +1,18 @@
 /**
- * Academic page — spec §4.3.
+ * Academic page — spec §4.3 + V2 §3.2.
  *
  * - Graduate and undergraduate degree blocks rendered as a vertical timeline.
  * - Each block carries an overview (rendered Markdown) plus a coursework grid.
  * - Course cells reveal an animated tooltip on hover with description + tags.
  * - Filter chips at the page header parse coursework by tag.
+ *
+ * V2 §3.2 additions:
+ *   - Diploma launch button at the top-right of each degree card.
+ *     - Undergraduate: opens a modal streaming /msu_diploma.pdf via <iframe>.
+ *     - Graduate: renders a static yellow "In Progress" pill instead.
+ *   - "Coursework" button on the undergraduate card opens the
+ *     TranscriptFlowchart modal (vertical year/semester layout with a GPA
+ *     metrics block top-right).
  */
 
 import { useEffect, useMemo, useState } from "react";
@@ -12,11 +20,33 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { Course, Degree } from "../lib/types";
 import { loadCourses, loadDegrees } from "../lib/data";
 import { Markdown } from "../components/Markdown";
+import { Modal } from "../components/Modal";
 import { PageHeader } from "../components/PageHeader";
 import { FilterChip } from "../components/FilterChip";
+import { TranscriptFlowchart } from "../components/TranscriptFlowchart";
 import { formatMonthYear } from "../lib/format";
 
+/**
+ * Modal selector. A degree card opens exactly one of:
+ *   - "diploma" : iframe of the PDF asset under /public.
+ *   - "transcript" : <TranscriptFlowchart /> body.
+ *   - null : no modal open.
+ */
+type AcademicModal =
+  | { kind: "diploma"; pdfPath: string; title: string }
+  | { kind: "transcript" }
+  | null;
+
+/**
+ * Heuristic: a degree is "in progress" iff its `end_date` is null
+ * (matches the Pydantic Degree schema convention).
+ */
+function isInProgress(deg: Degree): boolean {
+  return deg.end_date === null;
+}
+
 export function Academic() {
+  const [modal, setModal] = useState<AcademicModal>(null);
   const [degrees, setDegrees] = useState<Degree[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
@@ -92,22 +122,61 @@ export function Academic() {
                 className="absolute -left-[31px] top-1.5 h-3 w-3 rounded-full border-2 border-accent bg-ink-50 dark:bg-ink-900"
               />
               <article className="rounded-xl border border-ink-200 bg-ink-50 p-6 shadow-sm dark:border-ink-700 dark:bg-ink-800">
-                <header className="mb-4">
-                  <p className="text-xs font-medium uppercase tracking-widest text-accent">
-                    {deg.degree_type} &middot; {deg.institution}
-                  </p>
-                  <h2 className="mt-1 font-display text-2xl font-semibold text-ink-700 dark:text-ink-50">
-                    {deg.majors.join(" + ")}
-                    {deg.concentration ? (
-                      <span className="ml-2 text-base font-normal text-ink-500 dark:text-ink-400">
-                        ({deg.concentration})
+                <header className="mb-4 flex items-start justify-between gap-4">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-medium uppercase tracking-widest text-accent">
+                      {deg.degree_type} &middot; {deg.institution}
+                    </p>
+                    <h2 className="mt-1 font-display text-2xl font-semibold text-ink-700 dark:text-ink-50">
+                      {deg.majors.join(" + ")}
+                      {deg.concentration ? (
+                        <span className="ml-2 text-base font-normal text-ink-500 dark:text-ink-400">
+                          ({deg.concentration})
+                        </span>
+                      ) : null}
+                    </h2>
+                    <p className="mt-1 text-sm text-ink-500 dark:text-ink-400">
+                      {formatMonthYear(deg.start_date)} &mdash;{" "}
+                      {formatMonthYear(deg.end_date)}
+                    </p>
+                  </div>
+
+                  {/* Top-right credential cluster (V2 §3.2) */}
+                  <div className="flex shrink-0 flex-col items-end gap-2">
+                    {isInProgress(deg) ? (
+                      <span
+                        role="status"
+                        className="rounded-full border border-yellow-400/40 bg-yellow-300/15 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-yellow-700 dark:bg-yellow-300/10 dark:text-yellow-300"
+                      >
+                        In Progress
                       </span>
-                    ) : null}
-                  </h2>
-                  <p className="mt-1 text-sm text-ink-500 dark:text-ink-400">
-                    {formatMonthYear(deg.start_date)} &mdash;{" "}
-                    {formatMonthYear(deg.end_date)}
-                  </p>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setModal({
+                            kind: "diploma",
+                            pdfPath: "/msu_diploma.pdf",
+                            title: `${deg.degree_type} diploma — ${deg.institution}`,
+                          })
+                        }
+                        className="rounded-md border border-ink-200 px-3 py-1 text-xs font-medium text-ink-600 transition-colors hover:border-accent hover:text-accent dark:border-ink-700 dark:text-ink-200 dark:hover:border-accent"
+                        aria-label={`View ${deg.degree_type} diploma`}
+                      >
+                        View diploma
+                      </button>
+                    )}
+                    {deg.id === "msu-denver-bs" && (
+                      <button
+                        type="button"
+                        onClick={() => setModal({ kind: "transcript" })}
+                        className="rounded-md border border-ink-200 px-3 py-1 text-xs font-medium text-ink-600 transition-colors hover:border-accent hover:text-accent dark:border-ink-700 dark:text-ink-200 dark:hover:border-accent"
+                        aria-haspopup="dialog"
+                      >
+                        Coursework flowchart
+                      </button>
+                    )}
+                  </div>
                 </header>
 
                 <Markdown html={deg.overview_md_html} />
@@ -129,6 +198,42 @@ export function Academic() {
           );
         })}
       </ol>
+
+      {/* V2 §3.2 credential modal — diploma viewer or transcript flowchart. */}
+      <Modal
+        open={modal !== null}
+        title={
+          modal?.kind === "diploma"
+            ? modal.title
+            : modal?.kind === "transcript"
+              ? "Undergraduate transcript"
+              : ""
+        }
+        onClose={() => setModal(null)}
+      >
+        {modal?.kind === "diploma" && (
+          <div className="flex flex-col gap-3">
+            <iframe
+              src={modal.pdfPath}
+              title={modal.title}
+              className="h-[70vh] w-full rounded-lg border border-ink-200 bg-ink-100 dark:border-ink-700 dark:bg-ink-900"
+            />
+            <p className="text-xs text-ink-400">
+              If the PDF does not load,{" "}
+              <a
+                href={modal.pdfPath}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-accent underline-offset-2 hover:underline"
+              >
+                open it in a new tab
+              </a>
+              .
+            </p>
+          </div>
+        )}
+        {modal?.kind === "transcript" && <TranscriptFlowchart />}
+      </Modal>
     </section>
   );
 }

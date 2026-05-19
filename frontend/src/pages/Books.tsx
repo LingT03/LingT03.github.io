@@ -28,10 +28,12 @@ const SORT_OPTIONS = [
   { value: "alpha", label: "Alphabetical" },
 ] as const satisfies ReadonlyArray<{ value: SortKey; label: string }>;
 
+// V2 §3.5.2: filter order is Fiction → Nonfiction → Textbook
+// ("Learning" was replaced wholesale by "Textbook").
 const CATEGORIES: ReadonlyArray<BookCategory> = [
-  "Learning",
-  "Nonfiction",
   "Fiction",
+  "Nonfiction",
+  "Textbook",
 ];
 
 export function Books() {
@@ -51,9 +53,15 @@ export function Books() {
   }, [books]);
 
   const filtered = useMemo(() => {
-    const filtered = books.filter((b) => cats.size === 0 || cats.has(b.category));
+    const filtered = books.filter(
+      (b) => cats.size === 0 || cats.has(b.category),
+    );
+    // V2 §3.5: textbooks may have null ratings; treat null as -Infinity
+    // so unrated entries sort to the bottom under rating-desc.
+    const r = (b: Book): number =>
+      b.rating === null ? Number.NEGATIVE_INFINITY : b.rating;
     const cmp: Record<SortKey, (a: Book, b: Book) => number> = {
-      rating: (a, b) => b.rating - a.rating,
+      rating: (a, b) => r(b) - r(a),
       finished: (a, b) =>
         (b.finished_at ?? "0000").localeCompare(a.finished_at ?? "0000"),
       alpha: (a, b) => a.title.localeCompare(b.title),
@@ -121,10 +129,16 @@ export function Books() {
         {active && (
           <div className="flex flex-col gap-4">
             <p className="text-sm text-ink-500 dark:text-ink-400">
-              {active.author} &middot; {active.category} &middot; Rating{" "}
-              <strong className="text-ink-700 dark:text-ink-50">
-                {formatRating(active.rating)}
-              </strong>
+              {active.author} &middot; {active.category}
+              {active.rating !== null && (
+                <>
+                  {" "}
+                  &middot; Rating{" "}
+                  <strong className="text-ink-700 dark:text-ink-50">
+                    {formatRating(active.rating)}
+                  </strong>
+                </>
+              )}
             </p>
             <p className="text-xs text-ink-400">
               {formatMonthYear(active.started_at, "Not started")} &mdash;{" "}
@@ -180,9 +194,13 @@ function BookCard({ book, onOpen }: CardProps) {
       animate="rest"
       className="group relative block w-full overflow-hidden rounded-xl border border-ink-200 bg-ink-50 text-left shadow-sm transition-shadow duration-200 hover:shadow-md focus:outline-none focus-visible:border-accent dark:border-ink-700 dark:bg-ink-800"
       aria-haspopup="dialog"
-      aria-label={`${book.title} by ${book.author}. Rating ${formatRating(
-        book.rating,
-      )} out of 10. Open summary.`}
+      aria-label={
+        book.rating !== null
+          ? `${book.title} by ${book.author}. Rating ${formatRating(
+              book.rating,
+            )} out of 10. Open summary.`
+          : `${book.title} by ${book.author}. Open summary.`
+      }
     >
       <div className="aspect-[2/3] w-full overflow-hidden bg-ink-100 dark:bg-ink-700">
         {book.cover_image_url ? (
@@ -199,17 +217,19 @@ function BookCard({ book, onOpen }: CardProps) {
             {book.title}
           </div>
         )}
-        <motion.span
-          variants={{
-            rest: { opacity: 0, y: 6 },
-            hover: { opacity: 1, y: 0 },
-          }}
-          transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute right-2 top-2 rounded-full bg-ink-900/80 px-2 py-0.5 text-xs font-medium text-ink-50 backdrop-blur-sm"
-          aria-hidden
-        >
-          {formatRating(book.rating)}
-        </motion.span>
+        {book.rating !== null && (
+          <motion.span
+            variants={{
+              rest: { opacity: 0, y: 6 },
+              hover: { opacity: 1, y: 0 },
+            }}
+            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            className="pointer-events-none absolute right-2 top-2 rounded-full bg-ink-900/80 px-2 py-0.5 text-xs font-medium text-ink-50 backdrop-blur-sm"
+            aria-hidden
+          >
+            {formatRating(book.rating)}
+          </motion.span>
+        )}
       </div>
       <div className="px-3 py-2.5">
         <p className="line-clamp-2 text-sm font-medium text-ink-700 dark:text-ink-50">

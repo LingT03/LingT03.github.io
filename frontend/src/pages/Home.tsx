@@ -19,8 +19,8 @@ const sections = [
     desc: "Graduate and undergraduate coursework, degree overviews, and tagged study tracks.",
   },
   {
-    to: "/professional",
-    title: "Profiles",
+    to: "/work",
+    title: "Work",
     desc: "Job timeline with animated tech-stack bubbles and Markdown contribution logs.",
   },
   {
@@ -34,9 +34,14 @@ const sections = [
     desc: "Reading log with categories, ratings (0.00–10.00), summaries, and notes.",
   },
   {
-    to: "/photography",
-    title: "Photo",
-    desc: "Photo gallery filterable by device, location, and year, with a lightbox viewer.",
+    to: "/hobbies",
+    title: "Hobbies",
+    desc: "Photography rigs and personal devices as a grid of structured cards.",
+  },
+  {
+    to: "/certificates",
+    title: "Certificates",
+    desc: "Technical certifications and professional training milestones.",
   },
 ] as const;
 
@@ -163,7 +168,14 @@ export function Home() {
         </ul>
 
         <footer className="mt-8 border-t border-ink-200/60 pt-5 text-xs text-ink-400 dark:border-ink-700/60 dark:text-ink-500">
-          Read more &mdash; API documentation; tech stack.
+          Read more &mdash;{" "}
+          <Link
+            to="/api-docs"
+            className="text-accent underline-offset-2 hover:underline"
+          >
+            API documentation
+          </Link>
+          .
         </footer>
       </div>
     </section>

@@ -10,20 +10,23 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTheme } from "../lib/theme";
 import { PROFILE } from "../lib/profile";
+import { ThemeToggle } from "./ThemeToggle";
 
+// V2 §2.1: renamed /profiles → /work, /photography → /hobbies, and added
+// /certificates as a primary destination. NavBar surfaces only the primary
+// sections; /api-docs is linked from the Home page right pane only.
 const links = [
   { to: "/academic", label: "Academic" },
-  { to: "/professional", label: "Profiles" },
+  { to: "/work", label: "Work" },
   { to: "/projects", label: "Projects" },
   { to: "/books", label: "Books" },
-  { to: "/photography", label: "Photo" },
+  { to: "/hobbies", label: "Hobbies" },
+  { to: "/certificates", label: "Certificates" },
 ] as const;
 
 export function NavBar() {
   const [open, setOpen] = useState(false);
-  const { theme, toggle } = useTheme();
 
   return (
     <header
@@ -58,14 +61,7 @@ export function NavBar() {
               {l.label}
             </NavLink>
           ))}
-          <button
-            type="button"
-            onClick={toggle}
-            className="ml-2 rounded-md border border-ink-200 px-2.5 py-1 text-xs text-ink-600 transition-colors hover:border-ink-300 hover:text-ink-700 dark:border-ink-700 dark:text-ink-300 dark:hover:border-ink-600 dark:hover:text-ink-50"
-            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-          >
-            {theme === "dark" ? "Light" : "Dark"}
-          </button>
+          <ThemeToggle className="ml-2" />
         </nav>
 
         <button
@@ -120,14 +116,11 @@ export function NavBar() {
                     </NavLink>
                   </li>
                 ))}
-                <li>
-                  <button
-                    type="button"
-                    onClick={toggle}
-                    className="mt-2 w-full rounded-md border border-ink-200 px-3 py-2 text-left text-sm text-ink-600 dark:border-ink-700 dark:text-ink-200"
-                  >
-                    Switch to {theme === "dark" ? "light" : "dark"} mode
-                  </button>
+                <li className="mt-2 flex items-center gap-3 px-1">
+                  <span className="text-sm text-ink-600 dark:text-ink-200">
+                    Theme
+                  </span>
+                  <ThemeToggle />
                 </li>
               </ul>
             </div>
