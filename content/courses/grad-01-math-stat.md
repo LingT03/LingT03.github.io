@@ -1,13 +1,15 @@
 ---
-id: grad-math-stat
-degree_id: cu-denver-ms
-name: Mathematical Statistics
-code: MATH 5320  # TODO: confirm catalog code
+id: grad-math-5310-probability
+degree_id: du-ms-applied-math
+name: Probability
+code: MATH 5310
 tags:
-  - statistics
   - probability theory
+  - statistics
+  - mathematics
 ---
 
-Measure-theoretic underpinnings of estimation and hypothesis testing, including
-sufficiency, completeness, the Cramér–Rao lower bound, exponential families,
-and asymptotic theory of maximum likelihood estimators.
+Axioms of probability, combinatorial probability, conditional probability,
+discrete / continuous / multivariate random variables, expected values
+(mean, moments, variance, covariance), limit theorems (laws of large numbers,
+Central Limit Theorem), Poisson processes, and Markov chains.

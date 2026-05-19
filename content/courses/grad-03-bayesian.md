@@ -1,14 +1,15 @@
 ---
-id: grad-bayesian
-degree_id: cu-denver-ms
-name: Bayesian Statistics
-code: STAT 5XXX  # TODO: confirm catalog code
+id: grad-math-5718-linear-algebra
+degree_id: du-ms-applied-math
+name: Applied Linear Algebra
+code: MATH 5718
 tags:
-  - statistics
-  - probability theory
-  - computational
+  - linear algebra
+  - mathematics
+  - numerical methods
 ---
 
-Prior elicitation, posterior computation via Markov-chain Monte Carlo and
-variational approximations, hierarchical models, model checking with posterior
-predictive distributions, and Bayesian decision theory.
+Vector spaces, system equation solutions, projections, eigenvalues and
+eigenvectors, unitary transformations, Schur QR, singular value
+decomposition (SVD), similarity transformations, Jordan canonical forms,
+and positive definite matrices.

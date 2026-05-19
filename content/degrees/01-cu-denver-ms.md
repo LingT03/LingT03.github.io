@@ -1,24 +1,26 @@
 ---
-id: cu-denver-ms
-institution: University of Colorado Denver
+id: du-ms-applied-math
+institution: University of Denver
 degree_type: Masters
 majors:
   - Applied Mathematics
 concentration: Applied Statistics
-start_date: 2025-08-15  # TODO: confirm actual start date
-end_date: null  # null = in progress
+start_date: 2026-01-15
+end_date: null  # null = in progress (expected 2027)
 ---
 
-Graduate study at CU Denver focused on **causal inference**, **probabilistic modeling**,
-and **statistical learning theory**, with applied methodological work in the social
-sciences. Coursework integrates mathematical statistics, computational Bayesian
-methods, and machine-learning theory, with electives chosen to support a research
-trajectory in **causal machine learning** and **computational social science**.
+Graduate study at the University of Denver in **Applied Mathematics** with an
+**Applied Statistics** concentration. Current cumulative GPA: **4.0**.
+
+Coursework integrates probability theory, applied regression, linear algebra,
+and computational statistics, with electives oriented toward a research
+trajectory in **machine learning theory** and **applied bioinformatics**.
 
 Research interests include:
 
-- Identification strategies under unobserved confounding (instrumental variables,
-  difference-in-differences, regression discontinuity, synthetic controls).
-- Doubly-robust and semiparametric estimators (TMLE, double-ML, DR-learner).
-- Heterogeneous treatment effects via causal forests and meta-learners.
-- Bayesian hierarchical models for partially-pooled inference in observational data.
+- Probabilistic modeling under noisy / high-dimensional measurement.
+- Regression diagnostics and model selection for observational data.
+- Linear-algebraic foundations of modern ML (SVD, eigen-decompositions,
+  spectral methods).
+- Network-based inference for biological systems (carried over from current
+  CU Anschutz research role).

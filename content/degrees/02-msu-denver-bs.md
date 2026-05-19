@@ -6,8 +6,8 @@ majors:
   - Computer Science
   - Data Science and Machine Learning
 concentration: Mathematics (Minor)
-start_date: 2021-08-15  # TODO: confirm actual start date
-end_date: 2025-05-15    # TODO: confirm actual graduation date
+start_date: 2020-08-24
+end_date: 2025-12-13
 ---
 
 Undergraduate study at MSU Denver pursued as a **dual-major** track in Computer

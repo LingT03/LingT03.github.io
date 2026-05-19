@@ -1,14 +1,14 @@
 ---
-id: grad-causal-inference
-degree_id: cu-denver-ms
-name: Causal Inference
-code: STAT 6XXX  # TODO: confirm catalog code
+id: grad-math-5387-regression
+degree_id: du-ms-applied-math
+name: Applied Regression Analysis
+code: MATH 5387
 tags:
-  - causal inference
+  - regression
   - statistics
-  - ML
+  - applied statistics
 ---
 
-Identification and estimation of causal effects from observational data:
-potential outcomes, DAGs and d-separation, propensity scores, doubly-robust
-estimation, sensitivity analysis, and instrumental-variable methods.
+Simple and multiple linear regression models, diagnostics, remediation
+protocols, and model selection. Emphasizes application of linear models
+across business, biological, physical, and behavioral sciences.
