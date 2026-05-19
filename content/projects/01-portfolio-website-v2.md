@@ -13,7 +13,7 @@ tech_stack:
   - python
   - git
 links:
-  github: "https://github.com/LingT03/LT_portfolio"
+  github: "https://github.com/LingT03/LingT03.github.io"
 tags:
   - portfolio
   - react
