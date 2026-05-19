@@ -3,7 +3,7 @@
  *
  * Renders the major-relevant undergraduate coursework (Mathematics,
  * Computer Science, Data Science / Machine Learning) as a vertical,
- * chronologically-ordered flowchart. A high-visibility GPA metrics
+ * reverse-chronologically-ordered flowchart. A high-visibility GPA metrics
  * block sits along the top horizontal baseline, right-aligned.
  *
  * Source of truth
@@ -54,49 +54,259 @@ const TERM_ORDER: Readonly<Record<CourseRow["term"], number>> = {
 
 const ROWS: readonly CourseRow[] = [
   // Fall 2020
-  { code: "MTH 1111", title: "College Algebra for Calculus (with Lab)", grade: "B",  year: 2020, term: "Fall",   subject: "MTH" },
+  {
+    code: "MTH 1111",
+    title: "College Algebra for Calculus (with Lab)",
+    grade: "B",
+    year: 2020,
+    term: "Fall",
+    subject: "MTH",
+  },
   // Spring 2021
-  { code: "MTH 1120", title: "College Trigonometry",                   grade: "B",  year: 2021, term: "Spring", subject: "MTH" },
+  {
+    code: "MTH 1120",
+    title: "College Trigonometry",
+    grade: "B",
+    year: 2021,
+    term: "Spring",
+    subject: "MTH",
+  },
   // Summer 2021
-  { code: "CS 1050",  title: "Computer Science 1",                     grade: "B",  year: 2021, term: "Summer", subject: "CS"  },
-  { code: "MTH 1410", title: "Calculus I",                             grade: "B",  year: 2021, term: "Summer", subject: "MTH" },
+  {
+    code: "CS 1050",
+    title: "Computer Science 1",
+    grade: "B",
+    year: 2021,
+    term: "Summer",
+    subject: "CS",
+  },
+  {
+    code: "MTH 1410",
+    title: "Calculus I",
+    grade: "B",
+    year: 2021,
+    term: "Summer",
+    subject: "MTH",
+  },
   // Fall 2021
-  { code: "CS 1400",  title: "Computer Organization 1",                grade: "C+", year: 2021, term: "Fall",   subject: "CS"  },
-  { code: "CS 2050",  title: "Computer Science 2",                     grade: "C",  year: 2021, term: "Fall",   subject: "CS"  },
+  {
+    code: "CS 1400",
+    title: "Computer Organization 1",
+    grade: "C+",
+    year: 2021,
+    term: "Fall",
+    subject: "CS",
+  },
+  {
+    code: "CS 2050",
+    title: "Computer Science 2",
+    grade: "C",
+    year: 2021,
+    term: "Fall",
+    subject: "CS",
+  },
   // Spring 2022
-  { code: "CS 2400",  title: "Computer Organization 2",                grade: "B",  year: 2022, term: "Spring", subject: "CS"  },
-  { code: "CS 3250",  title: "Software Development Methods and Tools", grade: "B",  year: 2022, term: "Spring", subject: "CS"  },
+  {
+    code: "CS 2400",
+    title: "Computer Organization 2",
+    grade: "B",
+    year: 2022,
+    term: "Spring",
+    subject: "CS",
+  },
+  {
+    code: "CS 3250",
+    title: "Software Development Methods and Tools",
+    grade: "B",
+    year: 2022,
+    term: "Spring",
+    subject: "CS",
+  },
   // Summer 2022
-  { code: "CS 1030",  title: "Computer Science Principles",            grade: "B",  year: 2022, term: "Summer", subject: "CS"  },
+  {
+    code: "CS 1030",
+    title: "Computer Science Principles",
+    grade: "B",
+    year: 2022,
+    term: "Summer",
+    subject: "CS",
+  },
   // Fall 2022
-  { code: "CS 2240",  title: "Discrete Structures for CS",             grade: "B",  year: 2022, term: "Fall",   subject: "CS"  },
-  { code: "CS 3710",  title: "Web Application Development",            grade: "A",  year: 2022, term: "Fall",   subject: "CS"  },
-  { code: "MTH 3130", title: "Applied Methods in Linear Algebra",      grade: "C",  year: 2022, term: "Fall",   subject: "MTH" },
-  { code: "MTH 3210", title: "Probability and Statistics",             grade: "B-", year: 2022, term: "Fall",   subject: "MTH" },
+  {
+    code: "CS 2240",
+    title: "Discrete Structures for CS",
+    grade: "B",
+    year: 2022,
+    term: "Fall",
+    subject: "CS",
+  },
+  {
+    code: "CS 3710",
+    title: "Web Application Development",
+    grade: "A",
+    year: 2022,
+    term: "Fall",
+    subject: "CS",
+  },
+  {
+    code: "MTH 3130",
+    title: "Applied Methods in Linear Algebra",
+    grade: "C",
+    year: 2022,
+    term: "Fall",
+    subject: "MTH",
+  },
+  {
+    code: "MTH 3210",
+    title: "Probability and Statistics",
+    grade: "B-",
+    year: 2022,
+    term: "Fall",
+    subject: "MTH",
+  },
   // Spring 2023
-  { code: "CS 3240",  title: "Introduction to Theory of Computation",  grade: "C",  year: 2023, term: "Spring", subject: "CS"  },
-  { code: "CS 3600",  title: "Operating Systems",                      grade: "C",  year: 2023, term: "Spring", subject: "CS"  },
-  { code: "CS 3700",  title: "Networking and Distributed Computing",   grade: "C",  year: 2023, term: "Spring", subject: "CS"  },
-  { code: "CS 3810",  title: "Principles of Database Systems",         grade: "C+", year: 2023, term: "Spring", subject: "CS"  },
+  {
+    code: "CS 3240",
+    title: "Introduction to Theory of Computation",
+    grade: "C",
+    year: 2023,
+    term: "Spring",
+    subject: "CS",
+  },
+  {
+    code: "CS 3600",
+    title: "Operating Systems",
+    grade: "C",
+    year: 2023,
+    term: "Spring",
+    subject: "CS",
+  },
+  {
+    code: "CS 3700",
+    title: "Networking and Distributed Computing",
+    grade: "C",
+    year: 2023,
+    term: "Spring",
+    subject: "CS",
+  },
+  {
+    code: "CS 3810",
+    title: "Principles of Database Systems",
+    grade: "C+",
+    year: 2023,
+    term: "Spring",
+    subject: "CS",
+  },
   // Summer 2023
-  { code: "CS 3013",  title: "Software Design for Mobile Devices",     grade: "A+", year: 2023, term: "Summer", subject: "CS"  },
+  {
+    code: "CS 3013",
+    title: "Software Design for Mobile Devices",
+    grade: "A+",
+    year: 2023,
+    term: "Summer",
+    subject: "CS",
+  },
   // Fall 2023
-  { code: "CS 3210",  title: "Principles of Programming Languages",    grade: "A",  year: 2023, term: "Fall",   subject: "CS"  },
-  { code: "CS 4050",  title: "Algorithms and Algorithm Analysis",      grade: "C",  year: 2023, term: "Fall",   subject: "CS"  },
-  { code: "CS 4360",  title: "Senior Experience in CS",                grade: "A+", year: 2023, term: "Fall",   subject: "CS"  },
+  {
+    code: "CS 3210",
+    title: "Principles of Programming Languages",
+    grade: "A",
+    year: 2023,
+    term: "Fall",
+    subject: "CS",
+  },
+  {
+    code: "CS 4050",
+    title: "Algorithms and Algorithm Analysis",
+    grade: "C",
+    year: 2023,
+    term: "Fall",
+    subject: "CS",
+  },
+  {
+    code: "CS 4360",
+    title: "Senior Experience in CS",
+    grade: "A+",
+    year: 2023,
+    term: "Fall",
+    subject: "CS",
+  },
   // Spring 2024
-  { code: "CS 3120",  title: "Machine Learning",                       grade: "A",  year: 2024, term: "Spring", subject: "CS"  },
-  { code: "CS 3755",  title: "Computer Security: Offense and Defense", grade: "A+", year: 2024, term: "Spring", subject: "CS"  },
+  {
+    code: "CS 3120",
+    title: "Machine Learning",
+    grade: "A",
+    year: 2024,
+    term: "Spring",
+    subject: "CS",
+  },
+  {
+    code: "CS 3755",
+    title: "Computer Security: Offense and Defense",
+    grade: "A+",
+    year: 2024,
+    term: "Spring",
+    subject: "CS",
+  },
   // Fall 2024
-  { code: "CS 39AE",  title: "Data Visualization",                     grade: "A+", year: 2024, term: "Fall",   subject: "CS"  },
-  { code: "MTH 3220", title: "Statistical Methods",                    grade: "A",  year: 2024, term: "Fall",   subject: "MTH" },
+  {
+    code: "CS 39AE",
+    title: "Data Visualization",
+    grade: "A+",
+    year: 2024,
+    term: "Fall",
+    subject: "CS",
+  },
+  {
+    code: "MTH 3220",
+    title: "Statistical Methods",
+    grade: "A",
+    year: 2024,
+    term: "Fall",
+    subject: "MTH",
+  },
   // Spring 2025
-  { code: "DSML 3850", title: "Cloud Computing",                       grade: "A",  year: 2025, term: "Spring", subject: "DSML" },
-  { code: "DSML 4220", title: "Deep Learning",                         grade: "A",  year: 2025, term: "Spring", subject: "DSML" },
-  { code: "MTH 3270", title: "Data Science",                           grade: "A-", year: 2025, term: "Spring", subject: "MTH" },
+  {
+    code: "DSML 3850",
+    title: "Cloud Computing",
+    grade: "A",
+    year: 2025,
+    term: "Spring",
+    subject: "DSML",
+  },
+  {
+    code: "DSML 4220",
+    title: "Deep Learning",
+    grade: "A",
+    year: 2025,
+    term: "Spring",
+    subject: "DSML",
+  },
+  {
+    code: "MTH 3270",
+    title: "Data Science",
+    grade: "A-",
+    year: 2025,
+    term: "Spring",
+    subject: "MTH",
+  },
   // Fall 2025
-  { code: "DSML 4360", title: "Senior Experience in DS and ML",        grade: "A",  year: 2025, term: "Fall",   subject: "DSML" },
-  { code: "MTH 2410", title: "Calculus II",                            grade: "B+", year: 2025, term: "Fall",   subject: "MTH" },
+  {
+    code: "DSML 4360",
+    title: "Senior Experience in DS and ML",
+    grade: "A",
+    year: 2025,
+    term: "Fall",
+    subject: "DSML",
+  },
+  {
+    code: "MTH 2410",
+    title: "Calculus II",
+    grade: "B+",
+    year: 2025,
+    term: "Fall",
+    subject: "MTH",
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -129,7 +339,7 @@ const SUBJECT_LABELS: Readonly<Record<SubjectKey, string>> = {
 };
 
 /**
- * Group the filtered transcript by (year, term) in chronological order.
+ * Group the filtered transcript by (year, term) in reverse chronological order.
  */
 function useGroupedRows(): ReadonlyArray<{
   year: number;
@@ -154,8 +364,8 @@ function useGroupedRows(): ReadonlyArray<{
         };
       })
       .sort((a, b) => {
-        if (a.year !== b.year) return a.year - b.year;
-        return TERM_ORDER[a.term] - TERM_ORDER[b.term];
+        if (a.year !== b.year) return b.year - a.year;
+        return TERM_ORDER[b.term] - TERM_ORDER[a.term];
       });
   }, []);
 }
