@@ -52,7 +52,6 @@ export type ProjectStatus =
   | "completed"
   | "archived"
   | "prototype"
-  | "experimental"
   | "active";
 
 export interface Project {

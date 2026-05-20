@@ -4,16 +4,13 @@ title: Professional Research Assistant — JRaviLab
 organization: University of Colorado Anschutz Medical Campus
 location: Aurora, CO
 start_date: 2025-12-15
-end_date: null  # null = present
+end_date: null # null = present
 tech_stack:
   - python
   - r
   - pytorch
   - sklearn
-  - tidyverse
-  - jupyter
   - git
-  - docker
 ---
 
 Machine-learning research role in **JRaviLab** (Department of Biomedical

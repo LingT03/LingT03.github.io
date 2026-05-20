@@ -132,7 +132,6 @@ class Project(BaseModel):
         "completed",
         "archived",
         "prototype",
-        "experimental",
         "active",
     ] = "completed"
     role: str | None = None

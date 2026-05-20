@@ -3,13 +3,12 @@ id: audio-classification
 title: Audio Classification Pipeline
 role: ML Engineer / Researcher
 timeframe: "Spring 2025"
-status: experimental
+status: completed
 short_description_md: A machine learning project for classifying audio clips into predefined categories using modern deep learning models. Explores data preprocessing, model training, and evaluation for audio classification tasks.
 tech_stack:
   - python
   - pytorch
   - huggingface
-  - jupyter
   - git
 links:
   github: "https://github.com/LingT03/AudioClassification"

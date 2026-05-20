@@ -1,6 +1,6 @@
 ---
 id: vscode-r-arrow-quarto
-title: VS Code R Arrow / Quarto-Markdown Integration
+title: VS Code R Arrow
 role: Backend Engineer
 timeframe: "Spring 2026"
 status: completed

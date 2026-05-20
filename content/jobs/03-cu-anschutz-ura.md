@@ -10,8 +10,6 @@ tech_stack:
   - r
   - sklearn
   - pytorch
-  - tidyverse
-  - jupyter
   - git
 ---
 

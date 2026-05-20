@@ -3,7 +3,7 @@ id: brain-battles
 title: BrainBattles — Multiplayer Quiz Game
 role: Lead Developer / Game Designer
 timeframe: "Fall 2023"
-status: prototype
+status: completed
 short_description_md: A competitive quiz-style web game where players answer questions under time pressure to earn points, outsmart opponents, and climb a leaderboard.
 tech_stack:
   - javascript

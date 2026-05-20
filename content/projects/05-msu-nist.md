@@ -1,10 +1,10 @@
 ---
 id: msu-nist
-title: MSU–NIST Collaboration Project
+title: MSU–NIST Project
 role: Data Scientist
 timeframe: "Spring 2024"
 status: completed
-short_description_md: A collaborative project between Michigan State University-affiliated work and NIST, focused on standards, experimental analysis, and educational modules.
+short_description_md: A Machine Learning project that replicates the MNIST classification with personally collected data on the Auraria campus. The project involved data collection, preprocessing, model training, and evaluation, culminating in a pygames application for real-time digit classification.
 tech_stack:
   - python
   - r
@@ -22,11 +22,7 @@ tags:
 
 ## Context
 
-A collaboration between an MSU-affiliated research group and NIST on
-applied standards and experimental analysis. The repository captures
-the data-analysis side of the work — reproducible notebooks, regression
-and exploratory analysis, and educational modules that translate
-findings into teaching artifacts.
+A Machine Learning project for that replicates the MNIST classification with personally collected data on the Auraria campus. Personally collected 1000 handwritten digit samples, preprocessed them into a 28x28 grayscale format, and trained a convolutional neural network to classify the digits with 99% accuracy. The project culminated in a Pygame application that allows users to draw digits in real-time and receive instant classification feedback.
 
 ## Contributions
 

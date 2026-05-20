@@ -86,7 +86,7 @@ const SCHEMAS: ReadonlyArray<SchemaEntry> = [
       { name: "links", type: "Record<string, string>" },
       {
         name: "status",
-        type: '"in_progress" | "completed" | "archived" | "prototype" | "experimental"',
+        type: '"in_progress" | "completed" | "archived" | "prototype" | "active"',
       },
       { name: "tags", type: "string[]" },
     ],
