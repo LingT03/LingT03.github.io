@@ -61,7 +61,9 @@ export function Academic() {
   // Aggregate unique tags + counts for the filter chip row.
   const tagCounts = useMemo(() => {
     const m = new Map<string, number>();
-    courses.forEach((c) => c.tags.forEach((t) => m.set(t, (m.get(t) ?? 0) + 1)));
+    courses.forEach((c) =>
+      c.tags.forEach((t) => m.set(t, (m.get(t) ?? 0) + 1)),
+    );
     return Array.from(m.entries()).sort(([a], [b]) => a.localeCompare(b));
   }, [courses]);
 
@@ -151,30 +153,28 @@ export function Academic() {
                         In Progress
                       </span>
                     ) : (
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setModal({
-                            kind: "diploma",
-                            pdfPath: "/msu_diploma.pdf",
-                            title: `${deg.degree_type} diploma — ${deg.institution}`,
-                          })
-                        }
-                        className="rounded-md border border-ink-200 px-3 py-1 text-xs font-medium text-ink-600 transition-colors hover:border-accent hover:text-accent dark:border-ink-700 dark:text-ink-200 dark:hover:border-accent"
-                        aria-label={`View ${deg.degree_type} diploma`}
-                      >
-                        View diploma
-                      </button>
-                    )}
-                    {deg.id === "msu-denver-bs" && (
-                      <button
-                        type="button"
-                        onClick={() => setModal({ kind: "transcript" })}
-                        className="rounded-md border border-ink-200 px-3 py-1 text-xs font-medium text-ink-600 transition-colors hover:border-accent hover:text-accent dark:border-ink-700 dark:text-ink-200 dark:hover:border-accent"
-                        aria-haspopup="dialog"
-                      >
-                        Coursework flowchart
-                      </button>
+                      <>
+                        <span
+                          role="status"
+                          className="rounded-full border border-emerald-400/40 bg-emerald-500/15 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
+                        >
+                          Graduated
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setModal({
+                              kind: "diploma",
+                              pdfPath: "/msu_diploma.pdf",
+                              title: `${deg.degree_type} diploma — ${deg.institution}`,
+                            })
+                          }
+                          className="rounded-md border border-ink-200 px-3 py-1 text-xs font-medium text-ink-600 transition-colors hover:border-accent hover:text-accent dark:border-ink-700 dark:text-ink-200 dark:hover:border-accent"
+                          aria-label={`View ${deg.degree_type} diploma`}
+                        >
+                          View diploma
+                        </button>
+                      </>
                     )}
                   </div>
                 </header>
@@ -183,9 +183,21 @@ export function Academic() {
 
                 {degreeCourses.length > 0 && (
                   <div className="mt-6">
-                    <h3 className="mb-3 font-display text-sm font-semibold uppercase tracking-widest text-ink-500 dark:text-ink-400">
-                      Coursework
-                    </h3>
+                    <div className="mb-3 flex items-center gap-3">
+                      <h3 className="font-display text-sm font-semibold uppercase tracking-widest text-ink-500 dark:text-ink-400">
+                        Relevant Coursework
+                      </h3>
+                      {deg.id === "msu-denver-bs" && (
+                        <button
+                          type="button"
+                          onClick={() => setModal({ kind: "transcript" })}
+                          className="rounded-md border border-ink-200 px-3 py-1 text-xs font-medium text-ink-600 transition-colors hover:border-accent hover:text-accent dark:border-ink-700 dark:text-ink-200 dark:hover:border-accent"
+                          aria-haspopup="dialog"
+                        >
+                          Complete Coursework
+                        </button>
+                      )}
+                    </div>
                     <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                       {degreeCourses.map((c) => (
                         <CourseCell key={c.id} course={c} />
