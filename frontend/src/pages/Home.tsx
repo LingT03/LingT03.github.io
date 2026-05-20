@@ -8,9 +8,11 @@
  * routing to the other five pages, with hover elevation animations.
  */
 
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { PROFILE } from "../lib/profile";
+import { Modal } from "../components/Modal";
 
 const sections = [
   {
@@ -46,6 +48,8 @@ const sections = [
 ] as const;
 
 export function Home() {
+  const [resumeOpen, setResumeOpen] = useState(false);
+
   return (
     <section className="mx-auto grid max-w-6xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:py-16">
       {/* Left pane — profile sidebar. Sticky on desktop. */}
@@ -68,6 +72,16 @@ export function Home() {
           <p className="mt-3 max-w-md text-ink-500 dark:text-ink-300">
             {PROFILE.bio}
           </p>
+          <div className="mt-5">
+            <button
+              type="button"
+              onClick={() => setResumeOpen(true)}
+              className="inline-flex items-center justify-center rounded-md border border-ink-200 bg-ink-50 px-4 py-1.5 text-sm font-medium text-ink-600 shadow-sm transition-colors hover:border-accent hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-200 dark:hover:border-accent"
+              aria-label="View Resume"
+            >
+              View Resume
+            </button>
+          </div>
           <ul className="mt-6 flex flex-col gap-2 text-sm">
             <li>
               <a
@@ -178,6 +192,32 @@ export function Home() {
           .
         </footer>
       </div>
+
+      <Modal
+        open={resumeOpen}
+        title="Resume"
+        onClose={() => setResumeOpen(false)}
+      >
+        <div className="flex flex-col gap-3">
+          <iframe
+            src="/LingThang_resume.pdf"
+            title="Resume"
+            className="h-[70vh] w-full rounded-lg border border-ink-200 bg-ink-100 dark:border-ink-700 dark:bg-ink-900"
+          />
+          <p className="text-xs text-ink-400">
+            If the PDF does not load,{" "}
+            <a
+              href="/LingThang_resume.pdf"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-accent underline-offset-2 hover:underline"
+            >
+              open it in a new tab
+            </a>
+            .
+          </p>
+        </div>
+      </Modal>
     </section>
   );
 }
