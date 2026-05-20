@@ -45,27 +45,27 @@ export function ThemeToggle({ className = "" }: Props): JSX.Element {
       {/* Sun glyph (left, visible when light) */}
       <span
         aria-hidden
-        className="absolute left-1.5 top-1/2 -translate-y-1/2 text-[10px] leading-none text-ink-500 dark:text-ink-400"
+        className="pointer-events-none absolute left-1.5 top-1/2 z-10 -translate-y-1/2 text-[10px] leading-none text-ink-500 dark:text-ink-400"
       >
         <SunIcon />
       </span>
       {/* Moon glyph (right, visible when dark) */}
       <span
         aria-hidden
-        className="absolute right-1.5 top-1/2 -translate-y-1/2 text-[10px] leading-none text-ink-500 dark:text-ink-300"
+        className="pointer-events-none absolute right-1.5 top-1/2 z-10 -translate-y-1/2 text-[10px] leading-none text-ink-500 dark:text-ink-300"
       >
         <MoonIcon />
       </span>
       {/* Sliding thumb */}
       <motion.span
         aria-hidden
-        layout
+        initial={false}
+        animate={{ x: isDark ? "1.5rem" : "0.125rem", y: "-50%" }}
         transition={{ type: "spring", stiffness: 420, damping: 30 }}
         className={
-          "absolute top-1/2 h-5 w-5 -translate-y-1/2 rounded-full bg-ink-50 shadow-sm " +
+          "absolute left-0 top-1/2 h-5 w-5 rounded-full bg-ink-50 shadow-sm " +
           "dark:bg-ink-200"
         }
-        style={{ left: isDark ? "calc(100% - 1.375rem)" : "0.125rem" }}
       />
     </button>
   );
