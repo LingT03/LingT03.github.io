@@ -1,6 +1,6 @@
 ---
 id: grad-math-5387-regression
-degree_id: du-ms-applied-math
+degree_id: cu-ms-applied-math
 name: Applied Regression Analysis
 code: MATH 5387
 tags:

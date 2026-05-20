@@ -1,6 +1,6 @@
 ---
 id: grad-math-5310-probability
-degree_id: du-ms-applied-math
+degree_id: cu-ms-applied-math
 name: Probability
 code: MATH 5310
 tags:

@@ -1,6 +1,6 @@
 ---
-id: du-ms-applied-math
-institution: University of Denver
+id: cu-ms-applied-math
+institution: University of Colorado Denver
 degree_type: Masters
 majors:
   - Applied Mathematics
@@ -9,12 +9,12 @@ start_date: 2026-08-20
 end_date: null # null = in progress (expected 2027)
 ---
 
-Graduate study at the University of Denver in **Applied Mathematics** with an
+Graduate study at CU Denver in **Applied Mathematics** with an
 **Applied Statistics** concentration. Current cumulative GPA: **4.0**.
 
-Coursework integrates probability theory, applied regression, linear algebra,
-and computational statistics, with electives oriented toward a research
-trajectory in **machine learning theory** and **applied bioinformatics**.
+Coursework integrates probability theory, statistical inference, bayesian methods,
+and dynamic/linear programming, with electives oriented toward a research
+trajectory in **Causal Machine Learning** and **Computational Statistics**.
 
 Research interests include:
 

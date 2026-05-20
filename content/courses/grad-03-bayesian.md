@@ -1,6 +1,6 @@
 ---
 id: grad-math-5718-linear-algebra
-degree_id: du-ms-applied-math
+degree_id: cu-ms-applied-math
 name: Applied Linear Algebra
 code: MATH 5718
 tags:
