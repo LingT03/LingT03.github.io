@@ -124,6 +124,7 @@ CATALOG: tuple[CatalogEntry, ...] = (
     CatalogEntry("All About Love", "bell hooks", "Nonfiction", 8.8),
     CatalogEntry("A Little Life", "Hanya Yanagihara", "Fiction", 9.3),
     CatalogEntry("Everything is Tuberculosis", "John Green", "Nonfiction", 9.4),
+    CatalogEntry("The Alignment Problem", "Brian Christian", "Nonfiction", 8.8),
     # --- Textbooks (unrated) -------------------------------------------
     CatalogEntry(
         "Causal Inference for Statistics, Social, and Biomedical Sciences",
