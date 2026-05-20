@@ -1,5 +1,6 @@
 /**
- * Lightbox — full-screen photo viewer for the Photography page.
+ * Lightbox — full-screen photo viewer for the Hobbies page (V2 §3.6,
+ * formerly the Photography page).
  *
  * Spec §4.7.2: "Selecting an asset triggers a lightbox component displaying
  * the high-resolution photo accompanied by its description and artistic tags."

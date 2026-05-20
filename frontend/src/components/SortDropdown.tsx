@@ -1,5 +1,5 @@
 /**
- * SortDropdown — labeled <select> wrapper used by Books and Photography.
+ * SortDropdown — labeled <select> wrapper used by Books and Hobbies.
  */
 
 export interface SortOption<T extends string> {

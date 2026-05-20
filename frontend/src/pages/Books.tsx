@@ -1,12 +1,16 @@
 /**
- * Books page — spec §4.6.
+ * Books page — spec §4.6 + V2 §3.5.
  *
- * Toolbar: description header, [Learning] [Nonfiction] [Fiction] filter chips,
- * and a sorting dropdown (rating | finished_at | alphabetical).
+ * Toolbar: description header, [Fiction] [Nonfiction] [Textbook] filter
+ * chips, and a sorting dropdown (rating | finished_at | alphabetical).
+ * The legacy "Learning" bucket was retired in V2 §3.5 in favor of the
+ * narrower "Textbook" category.
  *
  * Shelf grid: thumbnail cover + title + author. Hovering a card reveals an
  * overlay score badge (0.00–10.00). Clicking opens a modal with summary and
- * notes, complete date scopes.
+ * notes, complete date scopes. Textbooks may carry a null rating, in which
+ * case the overlay badge is suppressed and the card sorts to the end under
+ * rating-desc.
  */
 
 import { useEffect, useMemo, useState } from "react";

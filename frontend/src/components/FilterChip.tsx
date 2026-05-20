@@ -1,6 +1,6 @@
 /**
  * FilterChip — toggleable pill used by Academic (course tags), Books
- * (categories), and Photography (devices/locations/years).
+ * (categories), and Hobbies (devices/locations/years).
  *
  * Spec §7.3: tab-indexable; aria-pressed reflects state for screen readers.
  */
