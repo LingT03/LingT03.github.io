@@ -57,6 +57,12 @@ jobs:
         working-directory: frontend
         run: npm run build
 
+      # SPA fallback: GitHub Pages serves 404.html for any unknown path, so
+      # copying index.html lets the React Router take over for deep links
+      # (e.g. /api-docs, /work) on a hard refresh.
+      - name: Wire SPA 404 fallback
+        run: cp frontend/dist/index.html frontend/dist/404.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
