@@ -16,6 +16,20 @@ import { Modal } from "../components/Modal";
 import { PageHeader } from "../components/PageHeader";
 import { TechBubbleRow } from "../components/TechBubbleRow";
 
+function getStatusColor(status: string): string {
+  switch (status) {
+    case "active":
+    case "in_progress":
+      return "border border-blue-400/40 bg-blue-500/15 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400";
+    case "completed":
+      return "border border-emerald-400/40 bg-emerald-500/15 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400";
+    case "prototype":
+      return "border border-yellow-400/40 bg-yellow-300/15 text-yellow-700 dark:bg-yellow-300/10 dark:text-yellow-300";
+    default:
+      return "border border-ink-200 bg-ink-100 text-ink-500 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-300";
+  }
+}
+
 export function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [techStack, setTechStack] = useState<TechStackItem[]>([]);
@@ -53,11 +67,9 @@ export function Projects() {
                   {p.title}
                 </h3>
                 <span
-                  className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider ${
-                    p.status === "in_progress" || p.status === "active"
-                      ? "bg-accent/10 text-accent"
-                      : "bg-ink-100 text-ink-500 dark:bg-ink-700 dark:text-ink-300"
-                  }`}
+                  className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider ${getStatusColor(
+                    p.status,
+                  )}`}
                 >
                   {p.status.replace("_", " ")}
                 </span>
@@ -90,7 +102,10 @@ export function Projects() {
               <h4 className="mb-1 text-xs font-medium uppercase tracking-widest text-ink-400">
                 Tech stack
               </h4>
-              <TechBubbleRow techIds={active.tech_stack} techStack={techStack} />
+              <TechBubbleRow
+                techIds={active.tech_stack}
+                techStack={techStack}
+              />
             </div>
             {Object.keys(active.links).length > 0 && (
               <div>
