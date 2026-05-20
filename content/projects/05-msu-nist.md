@@ -26,10 +26,7 @@ A Machine Learning project for that replicates the MNIST classification with per
 
 ## Contributions
 
-- Reproducible analysis notebooks in R Markdown / Quarto.
-- Data cleaning, validation, and visualization with `pandas` and
-  `ggplot2`.
-- Educational walkthroughs of the statistical methods used.
+- big thank you to my buddy Joaquin for helping with data collection and preprocessing!
 
 ## Status
 

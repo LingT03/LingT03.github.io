@@ -4,7 +4,7 @@ title: VS Code R Arrow
 role: Backend Engineer
 timeframe: "Spring 2026"
 status: completed
-short_description_md: A VS Code extension experiment to improve editing and rendering workflows for R and Quarto Markdown documents, especially `.qmd` files that mix R, Python, and prose.
+short_description_md: A contribution to an open-source VS Code extension experiment to add quarto file compatibility for keybinds. Submitted for PR to the main repo.
 tech_stack:
   - vscode
   - r
@@ -23,10 +23,10 @@ tags:
 
 ## Motivation
 
-Quarto's `.qmd` format mixes R, Python, and prose in a single document, but
-the default VS Code experience treats them as a single language scope. This
-project explores extension hooks to improve syntax highlighting, code-chunk
-folding, and arrow-key navigation across chunk boundaries.
+Prior to moving to positron, I was using VS-code as my primary IDE for data science
+related work. I had installed an R extension for the asignment and pipe keybinds, but
+the extension did not recognize the `.qmd` file format used by Quarto. This project was an
+experiment to add basic support for Quarto files in the R extension.
 
 ## Scope
 
