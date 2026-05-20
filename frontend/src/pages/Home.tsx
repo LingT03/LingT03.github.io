@@ -88,7 +88,7 @@ export function Home() {
                 className="inline-flex items-center gap-2 text-ink-600 hover:text-accent dark:text-ink-200"
               >
                 <span className="font-mono text-xs text-ink-400">~</span>
-                <span>linked in</span>
+                <span>linkedin</span>
               </a>
             </li>
             <li>
@@ -136,8 +136,8 @@ export function Home() {
             Website Navigation Guide
           </h2>
           <p className="mt-2 max-w-2xl text-ink-500 dark:text-ink-400">
-            A reader's index to the content on this site. Each card routes to
-            a section with its own data model and interaction language.
+            A reader's index to the content on this site. Each card routes to a
+            section with its own data model and interaction language.
           </p>
         </header>
 
