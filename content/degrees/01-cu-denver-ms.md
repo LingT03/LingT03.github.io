@@ -5,8 +5,8 @@ degree_type: Masters
 majors:
   - Applied Mathematics
 concentration: Applied Statistics
-start_date: 2026-01-15
-end_date: null  # null = in progress (expected 2027)
+start_date: 2026-08-20
+end_date: null # null = in progress (expected 2027)
 ---
 
 Graduate study at the University of Denver in **Applied Mathematics** with an
