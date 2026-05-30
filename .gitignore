@@ -13,6 +13,12 @@ dist/
 npm-debug.log*
 .npm/
 
+# Build artifacts emitted by `tsc -b` / `vite build` (regenerated, never committed)
+*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
+frontend/vite.config.*.timestamp-*.mjs
+
 # OS
 .DS_Store
 Thumbs.db
