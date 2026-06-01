@@ -16,6 +16,7 @@ Design notes
 
 from __future__ import annotations
 
+import re
 from datetime import date
 from typing import Literal
 
@@ -84,6 +85,82 @@ class Course(BaseModel):
     code: str
     short_description_md: str
     tags: list[str] = Field(default_factory=list)
+
+
+# ---------------------------------------------------------------------------
+# Publications module
+# ---------------------------------------------------------------------------
+
+
+# Canonical ORCID iD pattern: four hyphen-separated groups of four characters,
+# where the final character may be the checksum digit "X" (ISO 7064 mod 11-2).
+_ORCID_RE = re.compile(r"^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$")
+
+
+class Author(BaseModel):
+    """A single author on a publication byline.
+
+    Attributes
+    ----------
+    name : str
+        Display name as it should appear in the rendered author list.
+    orcid : str | None
+        Bare ORCID iD (e.g. ``"0000-0003-3134-8846"``), not the full URL.
+        The frontend expands it to ``https://orcid.org/<id>`` for linking.
+        Validated against the canonical 16-character ORCID pattern.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    name: str
+    orcid: str | None = None
+
+    @field_validator("orcid")
+    @classmethod
+    def _check_orcid(cls, v: str | None) -> str | None:
+        """Reject malformed ORCID iDs at build time."""
+        if v is not None and not _ORCID_RE.match(v):
+            raise ValueError(
+                f"invalid ORCID iD {v!r}; expected 0000-0000-0000-000X form"
+            )
+        return v
+
+
+class Publication(BaseModel):
+    """A research publication or preprint rendered on the Publications page.
+
+    The ordered ``authors`` list preserves byline order (the frontend bolds
+    the entry whose ``name`` matches the site owner). ``status`` captures the
+    lifecycle stage so the UI can badge preprints distinctly from peer-reviewed
+    articles. The Markdown body is injected into ``abstract_md`` and rendered to
+    ``abstract_md_html`` at build time, exactly like every other Markdown
+    content type in this pipeline.
+
+    Notes
+    -----
+    ``doi`` is stored as the bare DOI (``10.1101/...``); the frontend resolves
+    it to ``https://doi.org/<doi>``. ``url`` is an optional override for a
+    canonical landing page that is not derivable from the DOI.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    id: str
+    title: str
+    authors: list[Author]
+    venue: str
+    status: Literal[
+        "preprint",
+        "published",
+        "under_review",
+        "in_preparation",
+    ] = "preprint"
+    doi: str | None = None
+    url: str | None = None
+    published_date: date | None = None
+    links: dict[str, str] = Field(default_factory=dict)
+    tags: list[str] = Field(default_factory=list)
+    abstract_md: str  # populated from the Markdown body
 
 
 # ---------------------------------------------------------------------------
