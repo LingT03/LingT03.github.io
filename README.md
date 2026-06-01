@@ -13,6 +13,7 @@ build pipeline with Pydantic validation.
 ├── content/                  # source of truth for all displayed data
 │   ├── degrees/*.md          # Degree records
 │   ├── courses/*.md          # Course rows tied to a degree_id
+│   ├── publications/*.md     # Publication / preprint records
 │   ├── jobs/*.md             # Job records
 │   ├── projects/*.md         # Project records
 │   ├── books/*.md            # Book reviews (managed by fetch_books.py)
@@ -64,6 +65,19 @@ Visit http://localhost:5173.
 `npm run dev` and `npm run build` both run `python scripts/build_content.py`
 first via the `predev` / `prebuild` hooks (see `frontend/package.json`).
 
+### Live reload
+
+`npm run dev` gives full live reload. Vite's HMR already covers the
+React / TypeScript / CSS sources; on top of that, the `contentLiveReload`
+plugin in `frontend/vite.config.ts` watches `content/**` and `scripts/**`,
+re-runs the Python build on any `*.md` / `*.json` / `*.py` change
+(debounced, never overlapping), and pushes a full-reload so the browser
+picks up the regenerated `public/data/*.json` — no dev-server restart
+needed. The plugin resolves the interpreter from `$PYTHON`, then the
+repo-root `.venv`, then a system `python3`. A failed build (e.g. a schema
+validation error) is logged to the Vite terminal and the previous JSON is
+left in place.
+
 ## Adding content
 
 Edit or add Markdown files under `content/`. Every record's front
@@ -104,6 +118,7 @@ your locally authored review fields (rating, tags, summary, notes).
 | --------------- | ------------------------ | ---------------------------------------------------------------- |
 | `/`             | `pages/Home.tsx`         | Split-pane dashboard (§4.2)                                      |
 | `/academic`     | `pages/Academic.tsx`     | Degree timeline, course tooltips, undergrad transcript flowchart |
+| `/publications` | `pages/Publications.tsx` | Research output: status filter, sort, ORCID + DOI links, abstract modal |
 | `/work`         | `pages/Work.tsx`         | V2 §3.3 — formerly `/professional`                               |
 | `/projects`     | `pages/Projects.tsx`     | Card grid + modal with blurred backdrop                          |
 | `/books`        | `pages/Books.tsx`        | Fiction / Nonfiction / Textbook filter chips (V2 §3.5)           |
@@ -127,6 +142,7 @@ equivalents via `<Navigate replace>` so external links keep resolving.
 | §4.4 Evasive tech-stack bubbles                               | `components/EvasiveBubble.tsx` + `lib/hooks/useEvasion.ts` + `lib/hooks/useFloating.ts` |
 | §4.5 Project modal w/ blurred backdrop                        | `pages/Projects.tsx` + `components/Modal.tsx`                                           |
 | §4.6 Books: filter chips + sort + hover score + summary modal | `pages/Books.tsx`                                                                       |
+| Publications: research output (ORCID + DOI links, abstract modal) | `pages/Publications.tsx` + `scripts/schemas.py :: Publication`                       |
 | §4.7 Photography → V2 §3.6 Hobbies (devices + lightbox)       | `pages/Hobbies.tsx` + `components/Lightbox.tsx`                                         |
 | §5 Markdown content management                                | `scripts/build_content.py` + `components/Markdown.tsx`                                  |
 | §7.3 Accessibility                                            | `aria-modal`, `aria-expanded`, focus-visible rings, keyboard parity                     |
