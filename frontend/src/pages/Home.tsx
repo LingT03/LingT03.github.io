@@ -5,7 +5,7 @@
  * short bio, and external links cluster (GitHub, LinkedIn, LeetCode).
  *
  * Right pane: "Website Navigation Guide" header + section showcase cards
- * routing to the other five pages, with hover elevation animations.
+ * routing to each primary page, with hover elevation animations.
  */
 
 import { useState } from "react";
@@ -19,6 +19,11 @@ const sections = [
     to: "/academic",
     title: "Academic",
     desc: "Graduate and undergraduate coursework, degree overviews, and tagged study tracks.",
+  },
+  {
+    to: "/publications",
+    title: "Publications",
+    desc: "Research output — preprints and articles with author ORCID links, DOIs, and abstracts.",
   },
   {
     to: "/work",

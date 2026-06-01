@@ -47,6 +47,36 @@ export interface Job {
   tech_stack: string[];
 }
 
+export interface Author {
+  name: string;
+  // Bare ORCID iD (e.g. "0000-0003-3134-8846"); the UI expands it to
+  // https://orcid.org/<id>. null when the author has no linked ORCID.
+  orcid: string | null;
+}
+
+export type PublicationStatus =
+  | "preprint"
+  | "published"
+  | "under_review"
+  | "in_preparation";
+
+export interface Publication {
+  id: string;
+  title: string;
+  authors: Author[];
+  venue: string;
+  status: PublicationStatus;
+  // Bare DOI (e.g. "10.1101/2025.06.02.657296"); resolved to
+  // https://doi.org/<doi> at render time.
+  doi: string | null;
+  url: string | null;
+  published_date: string | null;
+  links: Record<string, string>;
+  tags: string[];
+  abstract_md: string;
+  abstract_md_html: string;
+}
+
 export type ProjectStatus =
   | "in_progress"
   | "completed"

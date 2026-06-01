@@ -4,6 +4,7 @@
  * Routes:
  *   /             → Home (split-pane dashboard)
  *   /academic     → Academic
+ *   /publications → Publications (research output)
  *   /work         → Work (formerly /professional)
  *   /projects     → Projects
  *   /books        → Books / Readings
@@ -19,6 +20,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { Home } from "./pages/Home";
 import { Academic } from "./pages/Academic";
+import { Publications } from "./pages/Publications";
 import { Work } from "./pages/Work";
 import { Projects } from "./pages/Projects";
 import { Books } from "./pages/Books";
@@ -33,6 +35,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/academic" element={<Academic />} />
+        <Route path="/publications" element={<Publications />} />
         <Route path="/work" element={<Work />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/books" element={<Books />} />

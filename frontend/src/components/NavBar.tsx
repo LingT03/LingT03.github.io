@@ -18,6 +18,7 @@ import { ThemeToggle } from "./ThemeToggle";
 // sections; /api-docs is linked from the Home page right pane only.
 const links = [
   { to: "/academic", label: "Academic" },
+  { to: "/publications", label: "Publications" },
   { to: "/work", label: "Work" },
   { to: "/projects", label: "Projects" },
   { to: "/books", label: "Books" },

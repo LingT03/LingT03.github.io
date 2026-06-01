@@ -35,7 +35,17 @@ import frontmatter  # type: ignore[import-untyped]
 import markdown as md_lib
 from pydantic import BaseModel, ValidationError
 
-from schemas import Book, Course, Degree, Device, Job, Photo, Project, TechStackItem
+from schemas import (
+    Book,
+    Course,
+    Degree,
+    Device,
+    Job,
+    Photo,
+    Project,
+    Publication,
+    TechStackItem,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -194,6 +204,9 @@ def build() -> None:
     courses = collect_markdown_dir(
         CONTENT_DIR / "courses", Course, "short_description_md"
     )
+    publications = collect_markdown_dir(
+        CONTENT_DIR / "publications", Publication, "abstract_md"
+    )
     jobs = collect_markdown_dir(CONTENT_DIR / "jobs", Job, "description_md")
     projects = collect_markdown_dir(
         CONTENT_DIR / "projects", Project, "long_description_md"
@@ -239,13 +252,15 @@ def build() -> None:
     write_json("devices", devices)
     write_json("degrees", degrees)
     write_json("courses", courses)
+    write_json("publications", publications)
     write_json("jobs", jobs)
     write_json("projects", projects)
     write_json("books", books)
     write_json("photos", photos)
 
     print(
-        f"\nDone. {len(degrees)} degrees, {len(courses)} courses, {len(jobs)} jobs, "
+        f"\nDone. {len(degrees)} degrees, {len(courses)} courses, "
+        f"{len(publications)} publications, {len(jobs)} jobs, "
         f"{len(projects)} projects, {len(books)} books, {len(photos)} photos."
     )
 

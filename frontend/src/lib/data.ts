@@ -14,6 +14,7 @@ import type {
   Job,
   Photo,
   Project,
+  Publication,
   TechStackItem,
 } from "./types";
 
@@ -22,6 +23,7 @@ type DataBundle = {
   devices: Device[];
   degrees: Degree[];
   courses: Course[];
+  publications: Publication[];
   jobs: Job[];
   projects: Project[];
   books: Book[];
@@ -61,6 +63,7 @@ export const loadTechStack = () => fetchJson<TechStackItem>("tech_stack");
 export const loadDevices = () => fetchJson<Device>("devices");
 export const loadDegrees = () => fetchJson<Degree>("degrees");
 export const loadCourses = () => fetchJson<Course>("courses");
+export const loadPublications = () => fetchJson<Publication>("publications");
 export const loadJobs = () => fetchJson<Job>("jobs");
 export const loadProjects = () => fetchJson<Project>("projects");
 export const loadBooks = () => fetchJson<Book>("books");

@@ -44,7 +44,8 @@ body {
 /* Tooltip pill styling shared across modules. */
 .tooltip-pill {
   @apply pointer-events-none absolute z-30 rounded-lg bg-ink-700 px-3 py-2 text-xs font-medium text-ink-50 shadow-xl dark:bg-ink-100 dark:text-ink-800;
-  max-width: 18rem;
+  width: max-content;
+  max-width: 14rem;
 }
 
 /* Markdown content typography. */

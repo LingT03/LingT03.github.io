@@ -106,6 +106,37 @@ const SCHEMAS: ReadonlyArray<SchemaEntry> = [
     ],
   },
   {
+    module: "Publication",
+    source: "scripts/schemas.py :: Publication",
+    tsType: "lib/types.ts :: Publication",
+    endpoint: "/data/publications.json",
+    bodyField: "abstract_md",
+    summary:
+      "A research publication or preprint rendered on the Publications page. authors is an ordered list of embedded Author records (name + optional ORCID iD, validated against the canonical ORCID pattern). status badges the lifecycle stage; doi is stored bare and resolved to https://doi.org/<doi> at render time. The Markdown body becomes abstract_md (raw) and abstract_md_html (server-rendered).",
+    fields: [
+      { name: "id", type: "string" },
+      { name: "title", type: "string" },
+      {
+        name: "authors",
+        type: "Author[]",
+        note: "ordered byline; Author = { name: string; orcid: string | null }",
+      },
+      { name: "venue", type: "string", note: "e.g. bioRxiv, journal name" },
+      {
+        name: "status",
+        type: '"preprint" | "published" | "under_review" | "in_preparation"',
+        note: "default: preprint",
+      },
+      { name: "doi", type: "string | null", note: "bare DOI, e.g. 10.1101/..." },
+      { name: "url", type: "string | null", note: "optional landing-page override" },
+      { name: "published_date", type: "ISO date | null" },
+      { name: "links", type: "Record<string, string>" },
+      { name: "tags", type: "string[]" },
+      { name: "abstract_md", type: "string" },
+      { name: "abstract_md_html", type: "string" },
+    ],
+  },
+  {
     module: "Job",
     source: "scripts/schemas.py :: Job",
     tsType: "lib/types.ts :: Job",
@@ -259,6 +290,18 @@ const SCRIPTS: ReadonlyArray<ScriptEntry> = [
         purpose: "Coursework tied to a degree via degree_id.",
       },
       {
+        name: "Author",
+        signature: "class Author(BaseModel)",
+        purpose:
+          "Embedded byline entry; _check_orcid validates the ORCID iD against the canonical 0000-0000-0000-000X pattern.",
+      },
+      {
+        name: "Publication",
+        signature: "class Publication(BaseModel)",
+        purpose:
+          "Research output; abstract_md is filled from the Markdown body, authors is an ordered list of Author records.",
+      },
+      {
         name: "Job",
         signature: "class Job(BaseModel)",
         purpose: "Work history entry. tech_stack lists TechStackItem.id strings.",
@@ -330,7 +373,7 @@ const SCRIPTS: ReadonlyArray<ScriptEntry> = [
         name: "build",
         signature: "build() -> None",
         purpose:
-          "Top-level pipeline: load shared tables, walk every Markdown directory, run referential-integrity checks (Course.degree_id, Job/Project.tech_stack[], Photo.device_id), then emit eight JSON payloads.",
+          "Top-level pipeline: load shared tables, walk every Markdown directory, run referential-integrity checks (Course.degree_id, Job/Project.tech_stack[], Photo.device_id), then emit nine JSON payloads.",
       },
     ],
   },
@@ -450,6 +493,12 @@ const LOADERS: ReadonlyArray<LoaderRow> = [
     signature: "() => Promise<Course[]>",
     endpoint: "/data/courses.json",
     purpose: "Resolve every course row; joined to a degree by degree_id on render.",
+  },
+  {
+    name: "loadPublications",
+    signature: "() => Promise<Publication[]>",
+    endpoint: "/data/publications.json",
+    purpose: "Resolve every publication record for the Publications page.",
   },
   {
     name: "loadJobs",
@@ -612,7 +661,8 @@ export function ApiDocs(): JSX.Element {
 │   ├── tech_stack.json   ──┐    ├── devices.json             │   loadTechStack()
 │   └── devices.json       │    ├── degrees.json              │   loadDevices()
 ├── degrees/*.md           │    ├── courses.json              │   loadDegrees()
-├── courses/*.md           │──> ├── jobs.json          ─────> │   loadCourses()
+├── courses/*.md           │    ├── publications.json         │   loadCourses()
+├── publications/*.md      │──> ├── jobs.json          ─────> │   loadPublications()
 ├── jobs/*.md              │    ├── projects.json             │   loadJobs()
 ├── projects/*.md          │    ├── books.json                │   loadProjects()
 ├── books/*.md             │    └── photos.json               │   loadBooks()
