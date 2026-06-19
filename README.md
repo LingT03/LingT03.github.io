@@ -112,6 +112,16 @@ populated automatically by running `python scripts/fetch_books.py` — it
 merges canonical bibliographic fields fetched from Open Library with
 your locally authored review fields (rating, tags, summary, notes).
 
+Projects (`content/projects/*.md`) carry an optional `date` (ISO,
+e.g. `2026-06-01`) used to order the grid: entries sort by status tier
+(`active` / `in_progress` first, `completed` last) then by `date`
+descending. `timeframe` stays the human-readable label (e.g. "Spring
+2026") — keep the two consistent. A project whose technology is not yet
+in `content/_meta/tech_stack.json` needs an entry added there (and,
+where the package ships a matching glyph, a slug in
+`frontend/src/lib/techIcons.ts`); the build fails fast on any
+`tech_stack` id it cannot resolve.
+
 ## Routing
 
 | Route           | Page component           | Notes                                                            |
@@ -120,7 +130,7 @@ your locally authored review fields (rating, tags, summary, notes).
 | `/academic`     | `pages/Academic.tsx`     | Degree timeline, course tooltips, undergrad transcript flowchart |
 | `/publications` | `pages/Publications.tsx` | Research output: status filter, sort, ORCID + DOI links, abstract modal |
 | `/work`         | `pages/Work.tsx`         | V2 §3.3 — formerly `/professional`                               |
-| `/projects`     | `pages/Projects.tsx`     | Card grid + modal with blurred backdrop                          |
+| `/projects`     | `pages/Projects.tsx`     | Card grid + modal; ordered by status tier (active/in-progress first, completed last) then date desc |
 | `/books`        | `pages/Books.tsx`        | Fiction / Nonfiction / Textbook filter chips (V2 §3.5)           |
 | `/hobbies`      | `pages/Hobbies.tsx`      | V2 §3.6 — formerly `/photography`                                |
 | `/certificates` | `pages/Certificates.tsx` | Skeleton view; catalog under construction                        |

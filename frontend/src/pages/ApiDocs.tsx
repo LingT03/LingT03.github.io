@@ -163,7 +163,7 @@ const SCHEMAS: ReadonlyArray<SchemaEntry> = [
     endpoint: "/data/projects.json",
     bodyField: "long_description_md",
     summary:
-      "A software / research project entry. V2 §3.4 expanded the lifecycle vocabulary (status) and added role / timeframe / tags.",
+      "A software / research project entry. V2 §3.4 expanded the lifecycle vocabulary (status) and added role / timeframe / tags. The Projects grid orders by status tier (active / in_progress first, completed last) then by date descending; timeframe is the human label while date is the machine-sortable anchor.",
     fields: [
       { name: "id", type: "string" },
       { name: "title", type: "string" },
@@ -691,7 +691,14 @@ export function ApiDocs(): JSX.Element {
           hooks in <code className="font-mono">frontend/package.json</code>,
           so <code className="font-mono">npm run dev</code> and{" "}
           <code className="font-mono">npm run build</code> always rebuild
-          the JSON payloads first.
+          the JSON payloads first. During{" "}
+          <code className="font-mono">npm run dev</code> the{" "}
+          <code className="font-mono">contentLiveReload</code> plugin in{" "}
+          <code className="font-mono">frontend/vite.config.ts</code> also
+          watches <code className="font-mono">content/**</code> and{" "}
+          <code className="font-mono">scripts/**</code>, re-runs the build on
+          any change, and pushes a full reload — so edits to Markdown or the
+          pipeline appear without restarting the dev server.
         </p>
       </article>
 
