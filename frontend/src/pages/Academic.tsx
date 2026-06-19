@@ -296,8 +296,7 @@ function CourseCell({ course }: CellProps) {
           <motion.div
             id={`course-${course.id}-tooltip`}
             role="tooltip"
-            // Pop up above the cell, anchored to its right edge (rises on enter).
-            className="tooltip-pill -top-2 right-0 -translate-y-full"
+            className="tooltip-pill bottom-full right-0 mb-2"
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4 }}
