@@ -17,5 +17,11 @@
   { "id": "jupyter", "name": "Jupyter", "logo_url": "/logos/jupyter.svg", "category": "tool", "level": 5 },
   { "id": "vscode", "name": "VS Code", "logo_url": null, "category": "tool", "level": 4 },
   { "id": "dowhy", "name": "DoWhy", "logo_url": "/logos/dowhy.svg", "category": "framework", "level": 3 },
-  { "id": "stan", "name": "Stan", "logo_url": "/logos/stan.svg", "category": "framework", "level": 3 }
+  { "id": "stan", "name": "Stan", "logo_url": "/logos/stan.svg", "category": "framework", "level": 3 },
+  { "id": "dart", "name": "Dart", "logo_url": null, "category": "language", "level": 4 },
+  { "id": "flutter", "name": "Flutter", "logo_url": null, "category": "framework", "level": 4 },
+  { "id": "riverpod", "name": "Riverpod", "logo_url": null, "category": "framework", "level": 3 },
+  { "id": "drift", "name": "Drift", "logo_url": null, "category": "framework", "level": 3 },
+  { "id": "sqlite", "name": "SQLite", "logo_url": null, "category": "tool", "level": 3 },
+  { "id": "ollama", "name": "Ollama", "logo_url": null, "category": "tool", "level": 3 }
 ]

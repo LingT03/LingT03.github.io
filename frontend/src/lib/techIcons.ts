@@ -51,6 +51,15 @@ export const TECH_ID_TO_TSI_SLUG: Readonly<Record<string, string>> = Object.free
   tailwindcss: "tailwindcss",
   "framer-motion": "framer",
 
+  // Cross-platform app / mobile
+  dart: "dart",
+  flutter: "flutter",
+  // Riverpod and Drift are missing from the package — accent-dot fallback.
+
+  // Data / local inference
+  sqlite: "sqlite",
+  ollama: "ollama",
+
   // Tooling
   docker: "docker",
   git: "git",
