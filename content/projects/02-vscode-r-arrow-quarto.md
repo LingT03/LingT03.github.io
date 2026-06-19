@@ -3,6 +3,7 @@ id: vscode-r-arrow-quarto
 title: VS Code R Arrow
 role: Backend Engineer
 timeframe: "Spring 2026"
+date: 2026-03-01
 status: completed
 short_description_md: A contribution to an open-source VS Code extension experiment to add quarto file compatibility for keybinds. Submitted for PR to the main repo.
 tech_stack:

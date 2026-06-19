@@ -3,6 +3,7 @@ id: anki-card-generations
 title: Anki Card Generations
 role: Backend Engineer
 timeframe: "Spring 2025"
+date: 2025-03-01
 status: prototype
 short_description_md: A toolchain for generating high-quality Anki flashcards programmatically from structured notes or source material, designed to support long-term spaced repetition for technical and academic content.
 tech_stack:

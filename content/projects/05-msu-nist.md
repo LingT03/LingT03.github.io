@@ -3,6 +3,7 @@ id: msu-nist
 title: MSU–NIST Project
 role: Data Scientist
 timeframe: "Spring 2024"
+date: 2024-03-01
 status: completed
 short_description_md: A Machine Learning project that replicates the MNIST classification with personally collected data on the Auraria campus. The project involved data collection, preprocessing, model training, and evaluation, culminating in a pygames application for real-time digit classification.
 tech_stack:

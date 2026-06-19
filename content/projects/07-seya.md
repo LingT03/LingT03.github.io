@@ -3,6 +3,7 @@ id: seya
 title: Seya
 role: Solo developer
 timeframe: "June 2026 – present"
+date: 2026-06-01
 status: in_progress
 short_description_md: A cross-platform spaced-repetition flashcard app with a built-in, fully on-device LLM study assistant. Reviews are scheduled with the FSRS-5 algorithm, and chat plus AI card-generation run against a local Ollama server, so no study data leaves the machine. A single Flutter/Dart codebase targets macOS, Windows, Linux, iOS, Android, and the web.
 tech_stack:

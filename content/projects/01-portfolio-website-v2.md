@@ -3,6 +3,7 @@ id: portfolio-website-v2
 title: This Website
 role: Full-Stack Engineer
 timeframe: "Spring 2026"
+date: 2026-03-01
 status: active
 short_description_md: An interactive portfolio specification engine built on a modular React tree featuring custom layout physics, canvas nodes, and localized markdown curation schemas.
 tech_stack:
