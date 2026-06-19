@@ -7,14 +7,44 @@
  *   tech stack bubbles, and links.
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import type { Project, TechStackItem } from "../lib/types";
+import type { Project, ProjectStatus, TechStackItem } from "../lib/types";
 import { loadProjects, loadTechStack } from "../lib/data";
 import { Markdown } from "../components/Markdown";
 import { Modal } from "../components/Modal";
 import { PageHeader } from "../components/PageHeader";
 import { TechBubbleRow } from "../components/TechBubbleRow";
+
+/**
+ * Display priority by lifecycle stage (lower sorts first). Active / in-progress
+ * work is favored to the top; completed work sinks to the bottom; prototype and
+ * archived sit in between. Within a tier, projects order by date (newest first).
+ */
+const STATUS_RANK: Record<ProjectStatus, number> = {
+  in_progress: 0,
+  active: 0,
+  prototype: 1,
+  archived: 1,
+  completed: 2,
+};
+
+/** Epoch milliseconds for a project's sort anchor; missing dates sink last. */
+function dateMs(p: Project): number {
+  return p.date ? Date.parse(p.date) : Number.NEGATIVE_INFINITY;
+}
+
+/**
+ * Total order over projects: status tier ascending, then date descending,
+ * with a title tiebreak so the sort is stable and deterministic.
+ */
+function compareProjects(a: Project, b: Project): number {
+  const tier = STATUS_RANK[a.status] - STATUS_RANK[b.status];
+  if (tier !== 0) return tier;
+  const byDate = dateMs(b) - dateMs(a);
+  if (byDate !== 0) return byDate;
+  return a.title.localeCompare(b.title);
+}
 
 function getStatusColor(status: string): string {
   switch (status) {
@@ -42,6 +72,12 @@ export function Projects() {
     });
   }, []);
 
+  // Order: active/in-progress first, completed last, newest-first within tier.
+  const sortedProjects = useMemo(
+    () => [...projects].sort(compareProjects),
+    [projects],
+  );
+
   return (
     <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:py-14">
       <PageHeader
@@ -51,7 +87,7 @@ export function Projects() {
       />
 
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((p) => (
+        {sortedProjects.map((p) => (
           <li key={p.id}>
             <motion.button
               type="button"

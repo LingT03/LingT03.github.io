@@ -96,6 +96,7 @@ export interface Project {
   status: ProjectStatus;
   role: string | null;
   timeframe: string | null;
+  date: string | null;
   tags: string[];
 }
 

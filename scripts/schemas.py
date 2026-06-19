@@ -22,6 +22,11 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
+# Alias for the ``date`` type. Lets a model declare a field literally named
+# ``date`` (see Project.date) without the field name shadowing the type during
+# Pydantic's forward-reference annotation resolution.
+_Date = date
+
 
 # ---------------------------------------------------------------------------
 # Shared concepts
@@ -194,6 +199,12 @@ class Project(BaseModel):
     Extended for V2 §3.4: ``role``, ``timeframe``, and ``tags`` join the
     existing identification fields, and ``status`` accepts the expanded
     lifecycle vocabulary used in the canonical V2 listing.
+
+    ``date`` is an optional machine-sortable anchor (the project's start, or
+    most recent activity) used to order the Projects grid. ``timeframe`` stays
+    the human-facing label (e.g. "Spring 2026"); ``date`` exists solely so the
+    frontend never has to parse that free-text string. Both refer to the same
+    period; keep them consistent when editing.
     """
 
     model_config = ConfigDict(extra="forbid")
@@ -213,6 +224,7 @@ class Project(BaseModel):
     ] = "completed"
     role: str | None = None
     timeframe: str | None = None
+    date: _Date | None = None  # sort anchor; None sinks to the bottom of its tier
     tags: list[str] = Field(default_factory=list)
 
 

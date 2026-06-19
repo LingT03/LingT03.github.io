@@ -179,7 +179,12 @@ const SCHEMAS: ReadonlyArray<SchemaEntry> = [
         note: "default: completed",
       },
       { name: "role", type: "string | null", note: "V2 §3.4" },
-      { name: "timeframe", type: "string | null", note: "V2 §3.4" },
+      { name: "timeframe", type: "string | null", note: "display label, e.g. 'Spring 2026'" },
+      {
+        name: "date",
+        type: "ISO date | null",
+        note: "machine-sortable anchor; grid sorts by status tier then date desc",
+      },
       { name: "tags", type: "string[]" },
     ],
   },
