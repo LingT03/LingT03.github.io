@@ -23,5 +23,7 @@
   { "id": "riverpod", "name": "Riverpod", "logo_url": null, "category": "framework", "level": 3 },
   { "id": "drift", "name": "Drift", "logo_url": null, "category": "framework", "level": 3 },
   { "id": "sqlite", "name": "SQLite", "logo_url": null, "category": "tool", "level": 3 },
-  { "id": "ollama", "name": "Ollama", "logo_url": null, "category": "tool", "level": 3 }
+  { "id": "ollama", "name": "Ollama", "logo_url": null, "category": "tool", "level": 3 },
+  { "id": "genanki", "name": "genanki", "logo_url": null, "category": "framework", "level": 3 },
+  { "id": "hatchling", "name": "Hatchling", "logo_url": null, "category": "tool", "level": 2 }
 ]
